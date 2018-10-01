@@ -112,3 +112,14 @@ While being performant, this also has some drawbacks:
 Given the blog application above how would you write the code for displaying a blog post (along with author, content, comments) for the following request formats: html, xml, json.
 
 I've only implemented `posts#show`. See commit for details
+
+### 2.5. Routing
+
+Assuming that listing all posts will be handled by the ​www.myblog.com​ URL, individual posts will be at ​www.myblog.com/posts/123​, please define how the basic structure of the routes.rb file would look.
+
+```ruby
+Rails.application.routes.draw do
+  root 'posts#index'
+  resources :posts, only: [:index, :show]
+end
+```

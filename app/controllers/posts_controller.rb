@@ -1,6 +1,13 @@
 class PostsController < ApplicationController
   before_action :set_post, only: [:show]
 
+  # GET /posts
+  # GET /posts.json
+  # GET /posts.xml
+  def index
+    @posts = Post.all
+  end
+
   # GET /posts/1
   # GET /posts/1.json
   # GET /posts/1.xml
