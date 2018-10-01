@@ -49,3 +49,36 @@ Full list of associations:
  - Post has_many :comments (needs to added manually)
 
 See commit for all model classes.
+
+### 2.3. How many queries are done to the DB for the following code?
+
+The code below updates the username of all comments on all posts.
+
+```ruby
+class User < ActiveRecord::Base
+  def close_account
+    # some code that handles account closing
+
+    # Mark the user’s posts as deleted
+    # and all the comments on those posts
+
+    all_posts = self.posts
+    all_posts.each do |post|
+      post.deleted = true
+      post.save!
+    end
+
+    comments = all_posts.map(&:comments).flatten
+    comments.each do |comment|
+      comment.deleted = true
+      comment.save!
+    end
+  end
+end
+```
+
+The following queries are executed before optimization:
+ - `self.posts` executes a single `SELECT` query to get all posts of the user
+ - `post.save!` will execute one `UPDATE` query per post of the user
+ - `all_posts.map(&:comments)` will execute one `SELECT` query per post of the user
+ - `comment.save!` will execute one `UPDATE` query per comment on the user's posts
