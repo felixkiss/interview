@@ -82,3 +82,27 @@ The following queries are executed before optimization:
  - `post.save!` will execute one `UPDATE` query per post of the user
  - `all_posts.map(&:comments)` will execute one `SELECT` query per post of the user
  - `comment.save!` will execute one `UPDATE` query per comment on the user's posts
+
+How would you optimise this code?
+
+This is a classic example of the n+1 problem. The number of queries should not scale proportionally with the number of database entries. Since we only want to update a simple boolean flag, I would suggest the following:
+
+```ruby
+def close_account
+  # some code that handles account closing
+
+  # Mark the user's posts as deleted
+  self.posts.update_all(deleted: true)
+
+  # and all the comments on those posts
+  Comment.where("post_id IN (SELECT id FROM posts WHERE user_id = ?)", self.id).update_all(deleted: true)
+end
+```
+
+This will only execute two queries, regardless of the number of entries in the database:
+ - `self.posts.update_all` will execute an `UPDATE` query for the `posts` table
+ - `Comment.where(...).update_all` will execute an `UPDATE` query for the `comments` table
+
+While being performant, this also has some drawbacks:
+ - Strong coupling with the database. In case the table or involved columns are renamed this code has to be updated as well
+ - [`update_all`](https://api.rubyonrails.org/classes/ActiveRecord/Relation.html#method-i-update_all) will not instantiate the involved AR models and thus will not trigger Active Record callbacks and validations. This can lead to weird bugs if a developer expects these to be run whenever a post/comment gets deleted
