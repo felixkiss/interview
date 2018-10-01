@@ -1,0 +1,11 @@
+<p id="notice"><%= notice %></p>
+
+<div>
+  <%= @post.content %>
+</div>
+
+<p><em>Written by <%= @post.user.name %></em></p>
+
+<h2>Comments</h2>
+
+<%= render @post.comments %>

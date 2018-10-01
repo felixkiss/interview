@@ -106,3 +106,9 @@ This will only execute two queries, regardless of the number of entries in the d
 While being performant, this also has some drawbacks:
  - Strong coupling with the database. In case the table or involved columns are renamed this code has to be updated as well
  - [`update_all`](https://api.rubyonrails.org/classes/ActiveRecord/Relation.html#method-i-update_all) will not instantiate the involved AR models and thus will not trigger Active Record callbacks and validations. This can lead to weird bugs if a developer expects these to be run whenever a post/comment gets deleted
+
+### 2.4. Format rendering
+
+Given the blog application above how would you write the code for displaying a blog post (along with author, content, comments) for the following request formats: html, xml, json.
+
+I've only implemented `posts#show`. See commit for details
