@@ -1,5 +1,9 @@
 # Rails Interview
 
+> Please note: For the ideal review experience check out the PR I've created:
+>
+> START HERE ---> https://github.com/felixkiss/interview/pull/1 <---
+
 ## 1. We have in our database the table `​payments​` that looks as described below. Please write a SQL query that ​returns the best performing **day** of 2016 in terms of total daily revenue.
 
 ```
@@ -23,7 +27,7 @@ ORDER BY total_revenue DESC
 LIMIT 1
 ```
 
-(see commit for all details)
+(see [commit](https://github.com/felixkiss/interview/pull/1/commits/e2c6a288e2409771233a4717e1014bc04913f478) for all details)
 
 ## 2. We define a ​Blog​ RoR application in which users can write Posts and they can Comment on Posts.
 
@@ -48,7 +52,7 @@ Full list of associations:
  - User has_many :comments (needs to added manually)
  - Post has_many :comments (needs to added manually)
 
-See commit for all model classes.
+See [commit](https://github.com/felixkiss/interview/pull/1/commits/08be4d24518f65a618eef7bd5a924c71e76cb5f8) for all model classes.
 
 ### 2.3. How many queries are done to the DB for the following code?
 
@@ -111,7 +115,7 @@ While being performant, this also has some drawbacks:
 
 Given the blog application above how would you write the code for displaying a blog post (along with author, content, comments) for the following request formats: html, xml, json.
 
-I've only implemented `posts#show`. See commit for details
+I've only implemented `posts#show`. See [commit](https://github.com/felixkiss/interview/pull/1/commits/c1944d99aff680fae9f1e23159637bb46f54261c) for details
 
 ### 2.5. Routing
 
@@ -166,7 +170,7 @@ def grandchildren
 end
 ```
 
-See commit for corresponding spec.
+See [commit](https://github.com/felixkiss/interview/pull/1/commits/98947555d924bf0bf426e02e937758ef3a64a1ba) for corresponding spec.
 
 ## 4. Create a route to be able to display pages with different information about different types of beer.
 
@@ -181,4 +185,4 @@ The route should recognize URL paths like `/beer/<beer_type>` and should use the
 
 Any other type of beer specified should generate a 404 status code.
 
-See commit for my solution.
+See [commit](https://github.com/felixkiss/interview/pull/1/commits/6843fd52b5ca6f641196c5450c0a35f67ab81ed7) for my solution.
