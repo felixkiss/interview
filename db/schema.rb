@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_10_01_182104) do
+ActiveRecord::Schema.define(version: 2018_10_02_023935) do
 
   create_table "comments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
     t.bigint "user_id"
@@ -29,6 +29,14 @@ ActiveRecord::Schema.define(version: 2018_10_01_182104) do
     t.datetime "issue_date"
     t.index ["issue_date"], name: "index_payments_on_issue_date"
     t.index ["user_id"], name: "index_payments_on_user_id"
+  end
+
+  create_table "people", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
+    t.string "name"
+    t.bigint "parent_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["parent_id"], name: "index_people_on_parent_id"
   end
 
   create_table "posts", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
@@ -50,5 +58,6 @@ ActiveRecord::Schema.define(version: 2018_10_01_182104) do
   add_foreign_key "comments", "posts"
   add_foreign_key "comments", "users"
   add_foreign_key "payments", "users"
+  add_foreign_key "people", "people", column: "parent_id"
   add_foreign_key "posts", "users"
 end

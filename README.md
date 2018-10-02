@@ -123,3 +123,23 @@ Rails.application.routes.draw do
   resources :posts, only: [:index, :show]
 end
 ```
+
+## 3. How would you define a Person model so that any Person can be assigned as the parent of another Person (as demonstrated in the Rails console below)?
+
+```ruby
+irb(main):001:0> john = Person.create(name: "John")
+irb(main):002:0> jim = Person.create(name: "Jim", parent: john)
+irb(main):003:0> bob = Person.create(name: "Bob", parent: john)
+irb(main):004:0> john.children.map(&:name) => ["Jim", "Bob"]
+```
+
+What columns would you need to define in the migration creating the table for Person?
+
+```ruby
+create_table :people do |t|
+  t.string :name
+  t.references :parent, foreign_key: {to_table: :people}
+
+  t.timestamps
+end
+```
